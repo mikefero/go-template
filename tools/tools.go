@@ -11,32 +11,16 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-package main
+
+//go:build tools
+// +build tools
+
+package tools
+
+// This package includes required tools as anon package so they get added and
+// versioned in go.sum
 
 import (
-	"fmt"
-
-	"go.uber.org/zap"
+	_ "golang.org/x/tools/cmd/deadcode"
+	_ "mvdan.cc/gofumpt"
 )
-
-var (
-	Version   string
-	Commit    string
-	OsArch    string
-	GoVersion string
-	BuildDate string
-)
-
-func main() {
-	logger, err := zap.NewProduction()
-	if err != nil {
-		panic(fmt.Sprintf("unable to create logger: %v", err))
-	}
-	logger.Info("starting app-name",
-		zap.String("version", Version),
-		zap.String("commit", Commit),
-		zap.String("os-arch", OsArch),
-		zap.String("go-version", GoVersion),
-		zap.String("build-date", BuildDate),
-	)
-}
