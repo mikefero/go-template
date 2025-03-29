@@ -5,11 +5,6 @@
 # Determine the packages for coverage ignoring generated code
 # COVERAGE_PACKAGES=$(shell go list ./... | grep -v "internal/api")
 
-# Ensure golang is available
-ifeq (, $(shell which go 2> /dev/null))
-$(error "'go' is not installed or available in PATH")
-endif
-
 .PHONY: test
 test: ## Run tests
 	@go test -race ./...

@@ -14,20 +14,24 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-// Package main contains the main entry point for the application.
-package main
+// Package cmd contains the command line package.
+package cmd
 
 import (
-	_ "embed"
+	"fmt"
 
-	"github.com/mikefero/go-template/internal/cmd"
+	"github.com/spf13/cobra"
 )
 
-//go:embed LICENSE
-var license string
+var licenseCmd = &cobra.Command{
+	Use:   "license",
+	Short: "Print app-name license",
+	Long:  `The license command prints the license of app-name.`,
+	Run: func(_ *cobra.Command, _ []string) {
+		fmt.Println(license) //nolint:forbidigo
+	},
+}
 
-func main() {
-	cmd.Execute(cmd.Options{
-		License: license,
-	})
+func init() {
+	rootCmd.AddCommand(licenseCmd)
 }

@@ -22,8 +22,8 @@ APP_OS_ARCH ?= $(shell go version | awk '{print $$4;}')
 APP_GO_VERSION ?= $(shell go version | awk '{print $$3;}')
 APP_DATE_FORMAT := +'%Y-%m-%dT%H:%M:%SZ'
 APP_BUILD_DATE ?= $(shell date $(APP_DATE_FORMAT))
-APP_PACKAGE := main
 define APP_LDFLAGS
+-X $(APP_PACKAGE).AppName=$(APP_NAME) \
 -X $(APP_PACKAGE).Version=$(APP_VERSION) \
 -X $(APP_PACKAGE).Commit=$(if $(APP_COMMIT),$(APP_COMMIT),dev) \
 -X $(APP_PACKAGE).OsArch=$(APP_OS_ARCH) \

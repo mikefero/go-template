@@ -36,8 +36,10 @@ help: ## Display this help screen
 APP_NAME := app-name
 APP_DIR := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 APP_WORKDIR := $(shell pwd)
+APP_PACKAGE := github.com/mikefero/go-template/internal/cmd
 
 include $(APP_DIR)/mk/build.mk
 include $(APP_DIR)/mk/common.mk
+include $(APP_DIR)/mk/dev.mk
 include $(APP_DIR)/mk/test.mk
 include $(APP_DIR)/mk/tools.mk

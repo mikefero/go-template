@@ -14,20 +14,33 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-// Package main contains the main entry point for the application.
-package main
+// Package cmd contains the command line package.
+package cmd
 
 import (
-	_ "embed"
+	"os"
 
-	"github.com/mikefero/go-template/internal/cmd"
+	"github.com/spf13/cobra"
 )
 
-//go:embed LICENSE
 var license string
 
-func main() {
-	cmd.Execute(cmd.Options{
-		License: license,
-	})
+// Options contains the options for the root command.
+type Options struct {
+	// License is the license of the application.
+	License string
+}
+
+var rootCmd = &cobra.Command{
+	Use:   "app-name",
+	Short: "Application Name",
+	Long:  `The app-name description.`,
+}
+
+// Execute adds all child commands to the root command and sets flags appropriately.
+func Execute(opts Options) {
+	license = opts.License
+	if err := rootCmd.Execute(); err != nil {
+		os.Exit(1)
+	}
 }

@@ -15,6 +15,7 @@
 //go:build tools
 // +build tools
 
+// Package tools contains required tools for the project.
 package tools
 
 // This package includes required tools as anon package so they get added and
