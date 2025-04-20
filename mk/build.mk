@@ -2,7 +2,7 @@
 # Build tooling
 # --------------------------------------------------
 
-# Ensure cat, date, git, and go are available
+# Ensure cat, date, and git are available
 ifeq (, $(shell which cat 2> /dev/null))
 $(error "'cat' is not installed or available in PATH")
 endif
@@ -11,9 +11,6 @@ $(error "'date' is not installed or available in PATH")
 endif
 ifeq (, $(shell which git 2> /dev/null))
 $(error "'git' is not installed or available in PATH")
-endif
-ifeq (, $(shell which go 2> /dev/null))
-$(error "'go' is not installed or available in PATH")
 endif
 
 APP_VERSION ?= $(shell cat $(APP_DIR)/version)

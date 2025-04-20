@@ -33,12 +33,16 @@ install-tools: ## Install required tools
 	@curl -sSfL \
 		"https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh" \
 		| sh -s -- -b "$(APP_DIR)/bin" "$(GOLANGCI_LINT_VERSION)"
-	@GOBIN="$(APP_DIR)/bin" cat tools/tools.go | grep _ | awk -F'"' '{print $$2}' | xargs -tI % sh -c 'GOBIN="$(APP_DIR)/bin" go install %'
+	@go get
+	@GOBIN="$(APP_DIR)/bin" cat tools/tools.go | \
+		grep _ | \
+			awk -F'"' '{print $$2}' | \
+				xargs -tI % sh -c 'GOBIN="$(APP_DIR)/bin" go install %'
 
 .PHONY: lint
 lint: ## Lint the source code
 	@if [ -x "$(APP_DIR)/bin/golangci-lint" ]; then \
-		"$(APP_DIR)/bin/golangci-lint" run ./...; \
+		"$(APP_DIR)/bin/golangci-lint" run ./... --verbose; \
 	else \
 		echo "'golangci-lint' is not installed, run 'make install-tools'"; \
 		exit 1; \
